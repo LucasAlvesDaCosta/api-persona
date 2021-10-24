@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,7 +34,15 @@ public class PersonController {
     public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO) {
         return personService.createPerson(personDTO);
     }
+    @GetMapping("/person")
+    public ModelAndView person() {
 
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("person");
+        modelAndView.addObject("allPerson", personService.listAll());
+
+        return modelAndView;
+    }
     @GetMapping
     public List<PersonDTO> listAll() {
         return personService.listAll();
