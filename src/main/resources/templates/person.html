@@ -63,7 +63,7 @@
     <br>
  <h2>New Person</h2>
 
- <form th:action="@{/person}" th:object="${person}" method="post">
+ <form name= 'personForm' th:action="@{/person}" th:object="${person}" enctype="utf8" method="post">
 
     <input type="text" name="name" th:field="*{person.name}" th:placeholder="Name" /> <br/>
      <span th:if="${#fields.hasErrors('name')}" th:errors="*{person.name}">Name Error</span>
