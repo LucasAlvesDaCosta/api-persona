@@ -1,17 +1,27 @@
 <h2>Desenvolvendo um sistema de gerenciamento de pessoas em API REST com Spring Boot</h2>
 
+<<<<<<< HEAD
 ### Tópicos:
  
 * Criação de modelo de dados para o mapeamento de entidades em bancos de dados
 * Desenvolvimento de operações de gerenciamento de usuários (Cadastro, leitura, atualização e remoção de pessoas de um sistema).
 * Relação de cada uma das operações acima com o padrão arquitetural REST.
 * Desenvolvimento de testes unitários para validação das funcionalidades.
+=======
+sistema para o gerenciamento de pessoas de uma empresa através de uma API REST, criada com o Spring Boot.
+
+* Desenvolvimento de testes unitários para validação das funcionalidades
+* Implantação do sistema na nuvem através do Heroku
+>>>>>>> e7e76649e2feac3e3e08db2d73f7e1dd31a6791c
+
+#### *Pagina web para gerenciamento de pessoas desenvolvida com thymeleaf, HTML e BootStrap* 
 
 Para executar o projeto no terminal, digite o seguinte comando:
 
 ```shell script
 mvn spring-boot:run 
 ```
+<<<<<<< HEAD
 
 Após executar o comando acima, basta apenas abrir o seguinte endereço e visualizar a execução do projeto (resultado paginado):
 
@@ -62,3 +72,17 @@ Abaixo, links relevantes sobre os tópicos abordados e sobre construções no pr
 * [Referência para o padrão arquitetural REST](https://restfulapi.net/)
 
 ##### Melhorias? entre em contato.
+=======
+Após executar o comando acima, basta apenas abrir o seguinte endereço e visualizar a execução do projeto:
+
+```
+http://localhost:8080/api/v1/people
+
+```
+**No heroku:**
+
+```
+https://api-people-live11.herokuapp.com/api/v1/people/person
+
+```
+>>>>>>> e7e76649e2feac3e3e08db2d73f7e1dd31a6791c
