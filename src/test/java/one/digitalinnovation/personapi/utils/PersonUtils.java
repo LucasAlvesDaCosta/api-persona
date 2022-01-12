@@ -6,6 +6,8 @@ import one.digitalinnovation.personapi.entity.Person;
 import java.time.LocalDate;
 import java.util.Collections;
 
+import lombok.Builder;
+@Builder
 public class PersonUtils {
 
     private static final String FIRST_NAME = "Rodrigo";
@@ -31,7 +33,7 @@ public class PersonUtils {
                 .lastName(LAST_NAME)
                 .cpf(CPF_NUMBER)
                 .birthDate(BIRTH_DATE)
-                .phones(Collections.singletonList(PhoneUtils.createFakeEntity()))
+                .phones(Collections.singleton(PhoneUtils.createFakeEntity()))
                 .build();
     }
 }
