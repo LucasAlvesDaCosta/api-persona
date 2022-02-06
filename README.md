@@ -1,4 +1,5 @@
-
+ [![NPM](https://img.shields.io/npm/l/react)](https://github.com/LucasAlvesDaCosta/api-persona/blob/main/LICENSE) _ *Desenvolvido e licenciado por Lucas Alves da Costa*
+ 
 <h2>Desenvolvendo um sistema de gerenciamento de pessoas em API REST com Spring Boot</h2>
 
 ### Tópicos:
