@@ -17,10 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import one.digitalinnovation.personapi.dto.request.PersonDTO;
 import one.digitalinnovation.personapi.dto.request.PhoneDTO;
 import one.digitalinnovation.personapi.dto.response.MessageResponseDTO;
+import one.digitalinnovation.personapi.entity.Address;
 import one.digitalinnovation.personapi.entity.Person;
 import one.digitalinnovation.personapi.entity.Phone;
 import one.digitalinnovation.personapi.exception.PersonNotFoundException;
 import one.digitalinnovation.personapi.mapper.PersonMapper;
+import one.digitalinnovation.personapi.repository.AddressRepository;
 import one.digitalinnovation.personapi.repository.PersonRepository;
 import one.digitalinnovation.personapi.repository.PhoneRepository;
 import one.digitalinnovation.personapi.service.exceptions.DataBaseException;
@@ -33,20 +35,34 @@ public class PersonService {
 	
 	@Autowired
 	private PhoneRepository phoneRepository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
+	
+	@Autowired
+	private viaCepService cepService;
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     public MessageResponseDTO createPerson(PersonDTO personDTO) {
+    	Address address = addressRepository.findById(personDTO.getCep()).orElseGet(() -> {
+    		Address newAddress = cepService.viaCep(personDTO.getCep());
+    		addressRepository.save(newAddress);
+    		return newAddress;
+    	});
     	
         Person personToSave = personMapper.toModel(personDTO);
+        personToSave.setAddress(address);
         Person savedPerson = personRepository.save(personToSave);
         
         return createMessageResponse(savedPerson.getId(), "Created person with ID: ");
     }
+    
 
     @Transactional(readOnly = true)
 	public Page<PersonDTO> findAllPaged(Pageable pageable) {
 		Page<Person> pagelist = personRepository.findAll(pageable);
+		///System.out.println("CEP: "+pagelist.getContent());
 		return pagelist.map(x -> new PersonDTO(x));
 	}
     
@@ -70,8 +86,8 @@ public class PersonService {
     @Transactional(readOnly = true)
     public PersonDTO findById(Long id) throws PersonNotFoundException {
         Person person = verifyIfExists(id);
-
-        return personMapper.toDTO(person);
+		System.out.println("CEP: "+person.getAddress().getCep());
+        return new PersonDTO(person);
     }
 
     public void delete(Long id) throws PersonNotFoundException {

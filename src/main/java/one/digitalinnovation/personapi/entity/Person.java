@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -40,21 +42,26 @@ public class Person {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Phone> phones;
     
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+    
     public Person () {
     	
     }
 
-	public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate) {
+	public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate, Address address) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.cpf = cpf;
 		this.birthDate = birthDate;
+		this.address = address;
 	}
 
 	public Person(Long id, String firstName, String lastName, String cpf,
-			LocalDate birthDate, Set<Phone> phones) {
+			LocalDate birthDate, Set<Phone> phones, Address address) {
 			
 			this.id = id;
 			this.firstName = firstName;
@@ -62,6 +69,7 @@ public class Person {
 			this.cpf = cpf;
 			this.birthDate = birthDate;
 			this.phones = phones;
+			this.address = address;
 		}
 
 	public Long getId() {

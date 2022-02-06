@@ -36,6 +36,8 @@ public class PersonDTO {
 
     @NotNull(message = "insert your birthdate")
     private String birthDate;
+    
+    private String cep;
 
     @Valid
     @NotEmpty
@@ -51,6 +53,7 @@ public class PersonDTO {
 		lastName = entity.getLastName();
 		cpf = entity.getCpf();		
 		birthDate = entity.getBirthDate().toString();
+		cep = entity.getAddress().getCep();
 		phones = entity.getPhones().stream().map(x-> new PhoneDTO(x)).collect(Collectors.toList());
 	}
     
@@ -61,7 +64,7 @@ public class PersonDTO {
 	}
 
 	public PersonDTO(Long id, String firstName, String lastName, String cpf,
-		String birthDate, List<PhoneDTO> phones) {
+		String birthDate,  String address, List<PhoneDTO> phones) {
 		
 		this.id = id;
 		this.firstName = firstName;
@@ -69,6 +72,7 @@ public class PersonDTO {
 		this.cpf = cpf;
 		this.birthDate = birthDate;
 		this.phones = phones;
+		cep = address;
 	}
 	
 }
